@@ -15,17 +15,19 @@ class MainController {
       .then(data => _this.currentLoc = `${data.city}, ${data.region} ${data.postal}`);
     this.geolocationFactory.getLatandLong()
       .then(data => _this.loc = data)
-      .finally(() => {
-        _this.addMoreResults(500);
-      });
+      .finally(() => _this.addMoreResults(500));
   }
 
 
   addMoreResults(dist) {
     var _this = this;
-    var distance = dist || 500;
-    var limit = 18 + _this.offsetLevel * 9;
-      this.campaignFactory.getCampaigns(this.loc[0], this.loc[1], limit, distance)
+    var params = {
+      longitude: _this.loc[0],
+      latitude: _this.loc[1],
+      limit: 18 + _this.offsetLevel + 1,
+      distance: dist || 500
+    };
+      this.campaignFactory.getCampaigns(params)
       .success(data => {
         _this.campaigns = data //_.extend($campaigns, data);
         _this.offsetLevel += 1;
@@ -57,7 +59,7 @@ class MainController {
     this.showMoreItems = function() {
       pagesShown = pagesShown + 1;
       self.addMoreResults(500);
-    }
+    };
   }
 }
 

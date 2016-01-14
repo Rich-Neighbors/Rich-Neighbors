@@ -7,12 +7,14 @@ angular.module('bApp')
         url: '/startCampaign',
         templateUrl: 'app/startCampaign/startCampaign.html',
         controller: 'StartCampaignController',
-        controllerAs: 'startCampaign'
+        controllerAs: 'startCampaign',
+        authenticate: true
       })
       .state('submitCampaignsSuccess', {
         url: '/submitCampaignsSuccess',
         templateUrl: 'app/submitCampaignsSuccess/submitCampaignsSuccess.html',
         controller: 'SubmitCampaignsSuccessCtrl',
+        authenticate: true
       //  controller: 'StartCampaignController',
         //  controllerAs: 'SubmitCampaignsSuccessCtrl'
       })

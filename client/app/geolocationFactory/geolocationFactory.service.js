@@ -16,24 +16,40 @@ class geolocationService {
   }
 }
 
+class generalService {
+  constructor() {
+    this.campaignId = '';
+  }
+  setCampaignId(id) {
+    this.campaignId = id;
+  }
+  getCampaignId() {
+    return campaignId;
+  }
+  static factory() {
+    return new generalService();
+  }
+}
+
 geolocationService.$inject = ['$http'];
 
 angular.module('bApp')
   .factory('geolocationFactory', geolocationService.factory)
   // Is the below factory in use?
-  .factory('generalFactory', function () {
-    var campaignId = '';
-    var setCampaignId = function(id) {
-      console.log('currentCampId = ', campaignId);
-      campaignId = id;
-      console.log('it has now been changed to = ', campaignId);
-    };
-    var getCampaignId = function() {
-      console.log('from the get: ', campaignId);
-      return campaignId;
-    };
-    return {
-      getCampaignId: getCampaignId,
-      setCampaignId: setCampaignId
-    };
-  });
+  .factory('generalFactory', generalService.factory );
+  //   function () {
+  //   var campaignId = '';
+  //   var setCampaignId = function(id) {
+  //     console.log('currentCampId = ', campaignId);
+  //     campaignId = id;
+  //     console.log('it has now been changed to = ', campaignId);
+  //   };
+  //   var getCampaignId = function() {
+  //     console.log('from the get: ', campaignId);
+  //     return campaignId;
+  //   };
+  //   return {
+  //     getCampaignId: getCampaignId,
+  //     setCampaignId: setCampaignId
+  //   };
+  // });
