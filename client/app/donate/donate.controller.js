@@ -98,7 +98,8 @@ angular.module('bApp.donate', ['ngMaterial'])
     var donationData = {
       amount: donatedAmount,
       campaign_id: campaignId,
-      user_id: userId || $stateParams._userId
+      user_id: userId || $stateParams._userId,
+      type: 'Donation'
     };
     return $http.post(contributionURL, donationData)
       .success(function (data) {

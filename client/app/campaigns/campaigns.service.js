@@ -35,9 +35,6 @@
     updateDonations(campaign) {
       return this.http.get(`/api/campaigns/${campaign}/contributors`).success(result => result.data);
     }
-    // static factory($http){
-    //   return new CampaignService($http);
-    // }
   }
 
   CampaignService.$inject = ['$http', 'Auth'];

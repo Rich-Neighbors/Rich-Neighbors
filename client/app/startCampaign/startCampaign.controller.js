@@ -15,11 +15,11 @@ angular.module('bApp.StartCampaignController', ['ngFileUpload'])
     $scope.formData = {};
     //$scope.campaign_id = '';
     $scope.formData.user_id = $scope.getCurrentUser()._id;
-    geolocationFactory.getLoc()
+    geolocationFactory.getLatandLong()
       .then(function(result) {
-        $scope.formData.loc = result.data.loc.split(',').map(function(loc) {
-          return Number(loc);
-        });
+        $scope.formData.loc = result //.data.loc.split(',').map(function(loc) {
+          //return Number(loc);
+        //});
       });
 
     //****************

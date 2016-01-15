@@ -1,44 +1,55 @@
+'use strict';
 
 (function() {
-  class ContributionFactory {
+  class ContributionService {
     constructor($http, Auth) {
       this.http = $http;
       this.auth = Auth;
     }
     getContributions(campaign) {
-      this.http.get(`/api/campaigns/${campaign}/contributors`).success(result => result.data);
+      return this.http.get(`/api/campaigns/${campaign}/contributors`).success(result => result.data);
     }
     getMyContributions() {
-      this.http.get(`/api/my/contributions`).success(result => result.data);
+      return this.http.get(`/api/my/contributions`).success(result => result.data);
     }
     makeMoneyContribution(campaign, payment) {
       var _this = this;
-      var data = _.extend(payment, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'donation'});
-      this.http.post(`/api/contributors`, data);
+      if (this.auth.isLoggedIn()) {
+        var data = _.extend(payment, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'Donation'});
+        return this.http.post(`/api/contributors`, data);
+      }
     }
     makeSupplyContribution(campaign, supply) {
       var _this = this;
-      var data = _.extend(supply, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'supplies'});
-      this.http.post(`/api/contributors`, data);
+      if (this.auth.isLoggedIn()) {
+        var data = _.extend(supply, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'Supply'});
+        return this.http.post(`/api/contributors`, data);
+      }
     }
     makeVolunteerContribution(campaign, volunteer) {
       var _this = this;
-      var data = _.extend(volunteer, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'volunteer'});
-      this.http.post(`/api/contributors`, data);
+      if (this.auth.isLoggedIn()) {
+        var data = _.extend(volunteer, {'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': campaign, 'type': 'Volunteer'});
+        return this.http.post(`/api/contributors`, data);
+      }
     }
-    checkIfFollower(campaign) {
-      var user = this.auth.getCurrentUser()._id;
-      return this.getFollowings().then(data => { return _.filter(data, val => {return val === campaign; }) });
+    removeContribution(contribution){
+      return this.http.delete(`/api/contributors/${contribution}`);
     }
-    follow() {
-      var _this = this;
-      var data = { 'user_id': _this.auth.getCurrentUser()._id, 'campaign_id': _this.campaign._id };
-      this.http.post('/api/followers', data).success(() => { _this.follow = true; });
-    }
-    unfollow(followid) {
-      this.http.delete(`/api/followers/${followid}`);
+    filterContributionsByType(type, data, id) {
+      var numbers = _.pluck(_.filter(data, {
+        'type': type,
+        'item_id': {
+          '_id': id
+        }
+      }), 'amount');
+      return function () {
+        return _.reduce(numbers, (total, n) => {
+          return total + n;
+        });
+      };
     }
   }
   angular.module('bApp')
-    .service('contributionFactory', ContributionFactory);
+    .service('contributionFactory', ContributionService);
 })();

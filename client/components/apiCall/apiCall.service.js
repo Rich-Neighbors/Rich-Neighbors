@@ -15,7 +15,7 @@
   }
 
   angular.module('bApp')
-    .service('apiCallFactory', apiCall);
+    .service('apiCall', apiCall);
 })();
 
 // angular.module('bApp')

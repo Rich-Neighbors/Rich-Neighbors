@@ -13,6 +13,6 @@ angular.module('bApp')
         url: '/campaignProfile/:id',
         templateUrl: 'app/campaignProfile/campaignProfile.html',
         controller: 'CampaignProfileController',
-        controllerAs: 'campaign'
+        controllerAs: 'cpCtrl'
       });
   })
