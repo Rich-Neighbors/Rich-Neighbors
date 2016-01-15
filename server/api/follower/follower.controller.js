@@ -62,7 +62,7 @@ function removeEntity(res) {
 
 // Gets a list of Followers
 exports.index = function(req, res) {
-  if (req.baseUrl === '/api/users/me/followers') {
+  if (req.baseUrl === '/api/users/my/followings') {
     Follower.find({user_id: req.user_id})
       .populate({path: 'campaign_id', model: Campaign})
       .execAsync()

@@ -3,17 +3,17 @@
 
 <div class="row">
   <div class="medium-6 large-9 columns">
-    <h1>{{campaign.title}}</h1>
-    <p><img src="{{campaign.images[0].link}}" alt="image of a planet called Campaign Image"></p>
-    <p>{{campaign.address.city}}, {{campaign.address.state | uppercase}} - {{campaign.address.country}}</p>
-    <h3>{{campaign.days}} Days Left</h3>
+    <h1>{{cpCtrl.campaign.title}}</h1>
+    <p><img src="{{cpCtrl.campaign.images[0].link}}" alt="image of a planet called Campaign Image"></p>
+    <p>{{cpCtrl.campaign.address.city}}, {{campaign.address.state | uppercase}} - {{campaign.address.country}}</p>
+    <h3>{{cpCtrl.campaign.days}} Days Left</h3>
     <!-- <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <h2 id="modalTitle">Awesome. I have it.</h2>
     <p>{{campaign.address.country}}</p>
   <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div> -->
-    <p>{{campaign.description}}</p>
+    <p>{{cpCtrl.campaign.description}}</p>
     <br>
   </div>
 
@@ -26,8 +26,14 @@
 
 
   <div class="medium-6 large-3 columns">
-    <div share-square="true" share-links="Facebook, Twitter, LinkedIn, Google-Plus" share-title="{{campaign.title}}"></div>
-    <div><a class="dd-button big green has-icon" ng-click="clicktofollow()">{{follow}}<span class="dd-button-icon"><i class="fa fa-{{check}}"></i></span></a></div>
+    <div share-square="true" share-links="Facebook, Twitter, LinkedIn, Google-Plus" share-title="{{cpCtrl.campaign.title}}"></div>
+    <div ng-hide='cpCtrl.following'>
+      <a class="dd-button big green has-icon" ng-click="cpCtrl.clicktofollow()">Follow<span class="dd-button-icon"><i class="fa fa-plus"></i></span></a>
+    </div>
+    <div ng-show='cpCtrl.following'>
+      <a class="dd-button big green has-icon" ng-click="cpCtrl.clicktofollow()">Followed<span class="dd-button-icon"><i class="fa fa-check"></i></span></a>
+    </div>
+
     </div>
 
     <div class="medium-6 large-3 columns">
@@ -38,11 +44,11 @@
         </div>
       </div>
       <div class="callout-card-content">
-        <h3 class="lead">{{donated | currency:undefined:0 }} Donated</h3>
+        <h3 class="lead">{{cpCtrl.donated | currency:undefined:0 }} Donated</h3>
         <!--   <div class="cause-info-widget-percentage"> -->
-        <span>{{( donated / campaign.goal* 100) | number:0}}%</span> raised of <span>${{campaign.goal}}</span> goal
-        <div class="progress" role="progressbar" data-raised="{{( donated / campaign.goal* 100)| number:2}}%">
-          <span class="progress-meter" style="width: {{( donated / campaign.goal* 100)| number:2}}%;"></span>
+        <span>{{( cpCtrl.donated / campaign.goal* 100) | number:0}}%</span> raised of <span>${{cpCtrl.campaign.goal}}</span> goal
+        <div class="progress" role="progressbar" data-raised="{{( cpCtrl.donated / cpCtrl.campaign.goal* 100)| number:2}}%">
+          <span class="progress-meter" style="width: {{( cpCtrl.donated / cpCtrl.campaign.goal* 100)| number:2}}%;"></span>
         </div>
         <!-- .cause-info-widget-percentage-bar -->
         <!--   </div> -->
@@ -50,7 +56,7 @@
           <a href="/donate" class="dd-button big green has-icon">MAKE A DONATION<span class="dd-button-icon"><i class="fa fa-dollar"></i></span></a>
           <br>
           <br>
-          <a href="#" class="dd-button big green has-icon" ng-click="saveDonation(100)">Donate $100</a>
+          <a href="#" class="dd-button big green has-icon" ng-click="cpCtrl.saveDonation(100)">Donate $100</a>
         </div>
       </div>
     </div>
@@ -64,16 +70,16 @@
       </div>
       <div class="callout-card-content">
         <h3 class="lead"> Supplies</h3>
-        <div ng-repeat="x in obj.items">
+        <div ng-repeat="x in cpCtrl.items">
           <li><a href="#" ng-click="showDetails = ! showDetails">{{x.name}}: {{x.quantity}} </a>
-            <p>{{filterSupply(obj.contributors, x._id ) || 0}}  donated</p>
+            <p>{{cpCtrl.filterSupply(cpCtrl.contributors, x._id ) || 0}}  donated</p>
             <div ng-show="showDetails">
               <p>
                 <label>Select Quantity
                   <select ng-model="selectedItem">
                     <option ng-repeat="n in range(x.quantity)" value="{{$index +1 }}">{{$index + 1}}</option>
                   </select>
-                  <a class="dd-button small green" ng-click="contributeSupply(selectedItem, x._id)"> Donate</a> </label>
+                  <a class="dd-button small green" ng-click="cpCtrl.contributeSupply(selectedItem, x._id)"> Donate</a> </label>
               </p>
             </div>
           </li>
@@ -90,11 +96,11 @@
       </div>
       <div class="callout-card-content">
         <h3 class="lead">Volunteers</h3>
-        <div ng-repeat="x in obj.volunteers">
+        <div ng-repeat="x in cpCtrl.volunteers">
           <li><a href="#" ng-click="showDetails = ! showDetails">{{x.name}}: {{x.quantity}} </a>
-            <p>{{filterVolunteer(obj.contributors, x._id ) || 0}} signed up</p>
+            <p>{{cpCtrl.filterVolunteer(cpCtrl.contributors, x._id ) || 0}} signed up</p>
             <div ng-show="showDetails">
-              <a class="dd-button small green" ng-click="contributeVolunteer(x._id)"> Sign Up</a>
+              <a class="dd-button small green" ng-click="cpCtrl.contributeVolunteer(x._id)"> Sign Up</a>
             </div>
           </li>
         </div>
