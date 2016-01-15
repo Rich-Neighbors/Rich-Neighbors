@@ -75,23 +75,24 @@
     checkiffollowed() {
       var _this = this;
       this.followingFactory.getMyFollowings()
-        .then(data => { console.log(_.filter(data, val => {return val.campaign_id === campaign })) })
-        // .then(data => {
-        //   if (data) { _this.following = true; console.log(data); }
-        //   else { _this.following = false; }
-        // })
-        .error(error => console.error(`Error: ${error}`));
+        //.then(data => { console.log(_.filter(data, val => {return val.campaign_id === campaign })) })
+        .then(result => { console.log(_.filter(result.data, val => {return val.campaign_id._id === _this.campaign._id })) })
+        .then(data => {
+          if (data) { _this.following = true; _this.followingid = data[0]._id }
+          else { _this.following = false; _this.followingid = null;}
+        })
+        .catch(error => { console.log(`Error: ${error}`) });
     }
     clicktofollow() {
       var _this = this;
       if (this.following === false) {
         this.followingFactory.follow(this.campaign._id)
           .success(data => { _this.followingid = data._id; _this.following = true;})
-          .error(error => console.error(`Error: ${error}`));
+          .error(error => console.log(`Error: ${error}`));
       } else {
         this.followingFactory.unfollow(_this.followingid)
           .success(() => {_this.followingid = null; _this.following = false })
-          .error(error => console.error(`Error: ${error}`));
+          .error(error => console.log(`Error: ${error}`));
       }
     }
     contributeSupply(quantity, id) {
