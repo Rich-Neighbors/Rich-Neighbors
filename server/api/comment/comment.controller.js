@@ -115,6 +115,7 @@ exports.create = function(req, res) {
   }
   Comment.createAsync(data)
     .then(function (data) {
+      console.log(data);
       if (data.parent) {
         return Comment.findByIdAndUpdate(data.parent,
         {$push: {'replies': data._id}},
