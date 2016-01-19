@@ -27,11 +27,6 @@ var CommentSchema = new Schema({
     ref: 'User',
     //required: true
   },
-   profile_pic: {
-    type: String,
-    ref: 'User',
-    //required: true
-  },
   level: {
     type: Number,
     default: 1
