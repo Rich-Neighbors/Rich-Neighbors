@@ -9,7 +9,7 @@
     <form class="form" name="cpCtrl.form" ng-submit="cpCtrl.addComment()" novalidate ng-show="nav.isLoggedIn()">
       <!-- form.$valid &&-->
       <div class="form-row">
-        <textarea class="input" ng-model="cpCtrl.commentText" placeholder="Add comment..." required></textarea>
+        <textarea class="input" ng-model="cpCtrl.commentData.text" placeholder="Add comment..." required></textarea>
       </div>
       <div class="form-row" ng-show="nav.isLoggedIn()">
         {{cpCtrl.name}}
