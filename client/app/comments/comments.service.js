@@ -14,8 +14,9 @@
     createComment (form, campaign) {
       var user = this.auth.getCurrentUser()._id;
       if (this.auth.isLoggedIn() && user) {
-        var data = _.extend(form,{ 'user_id': user});
-        return this.http.post(`/api/campaigns/${campaign}/comments`, data);
+        var data = _.extend(form);
+        console.dir(form);
+        return this.http.post(`/api/campaigns/${campaign}/comments`, form);
       }
     }
     createReply (form, parent) {
