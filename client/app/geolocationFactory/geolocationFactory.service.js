@@ -35,7 +35,6 @@ geolocationService.$inject = ['$http'];
 
 angular.module('bApp')
   .factory('geolocationFactory', geolocationService.factory)
-  // Is the below factory in use?
   .factory('generalFactory', generalService.factory );
   //   function () {
   //   var campaignId = '';
