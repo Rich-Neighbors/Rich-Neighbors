@@ -24,7 +24,7 @@ class generalService {
     this.campaignId = id;
   }
   getCampaignId() {
-    return campaignId;
+    return this.campaignId;
   }
   static factory() {
     return new generalService();
@@ -35,7 +35,6 @@ geolocationService.$inject = ['$http'];
 
 angular.module('bApp')
   .factory('geolocationFactory', geolocationService.factory)
-  // Is the below factory in use?
   .factory('generalFactory', generalService.factory );
   //   function () {
   //   var campaignId = '';
