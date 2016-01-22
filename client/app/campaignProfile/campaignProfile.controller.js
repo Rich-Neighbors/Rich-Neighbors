@@ -1,9 +1,20 @@
-'use strict';
+"use strict";
 
-(function(){
+(() => {
   class CampaignProfileController {
 
-    constructor(Auth, $stateParams, $http, apiCall, geolocationFactory, generalFactory, donationFactory, campaignFactory, commentFactory, contributionFactory, followingFactory) {
+    constructor(
+      Auth,
+      $stateParams,
+      $http,
+      apiCall,
+      geolocationFactory,
+      generalFactory,
+      donationFactory,
+      campaignFactory,
+      commentFactory,
+      contributionFactory,
+      followingFactory) {
       this.auth = Auth;
       this.stateParams = $stateParams;
       this.http = $http;
@@ -28,13 +39,13 @@
       this.getCampaignData();
     }
     calculateDonations(contributions) {
-      var donations = _.filter(contributions, (val) => val.type === 'Donation')
+      const donations = _.filter(contributions, (val) => val.type === 'Donation')
         .map(a =>  a.amount).reduce((a, b) => a + b);
       console.log('donationsSooly', donations);
       return donations;
     }
     updateDonatedAmount() {
-      var _this = this;
+      const _this = this;
       this.campaignFactory.updateDonations(_this.stateParams.id).then(data => {
           _this.donated = _this.calculateDonations(data.data);
       });
@@ -44,7 +55,7 @@
         .then(() => this.updateDonatedAmount());
     }
     getCampaignData() {
-      var _this = this;
+      const _this = this;
       this.campaignFactory.getCampaign(this.stateParams.id)
         .then(data => {
           _this.campaign = data.data;
@@ -60,10 +71,10 @@
         .then(data => {
           _this.updateDonatedAmount();
         })
-        .catch(data => console.error('Error: ' + data));
+        .catch(data => console.error(`Error: ${data}`));
     }
     addComment() {
-      var _this = this;
+      const _this = this;
       this.commentFactory.createComment(this.commentData, this.campaign._id)
         .success(data => {
       console.log(data);
@@ -84,15 +95,14 @@
         .error(error => console.log(`Error:  ${error}`));
     }
     checkiffollowed() {
-      var _this = this;
+      const _this = this;
       this.followingFactory.getMyFollowings()
         .then(result => { 
-          var _followedCampaigns = _.map(result.data, a => a.campaign_id._id);
+          const _followedCampaigns = _.map(result.data, a => a.campaign_id._id);
           if(_.contains(_followedCampaigns, _this.campaign._id)) {
-            _this.following = true
+            _this.following = true;
           }
-          return _.filter(result.data, val => {return val.campaign_id._id === _this.campaign._id;
-          });})
+          return _.filter(contributions, (val) => val.type === 'Donation')
         // .then(data => {
         //   if (data) { 
         //     console.log('dataHOOEREEEE ', data)
@@ -102,11 +112,12 @@
         .catch(error => { console.log(`Error: ${error}`);});
     }
     clicktofollow() {
-      var _this = this;
+      const _this = this;
+      console.log(_this.followingid);
       if (this.following === false) {
         this.followingFactory.follow(_this.campaign._id)
           .success(data => { 
-          console.log('clicktofollow  ',data)
+          console.log('clicktofollow  ', data);
             _this.followingid = data._id; _this.following = true;})
           .error(error => console.log(`Error: ${error}`));
       } else {
@@ -118,7 +129,7 @@
     contributeSupply(quantity, id) {
       // $scope.supplySignUp.item_id = id;
       // $scope.supplySignUp.amount = quantity;
-      var data = {'amount': quantity, 'item_id': id};
+      const data = {'amount': quantity, 'item_id': id};
       this.contributionFactory.makeSupplyContribution(this.campaign._id, data)
         .success( data => {
           alert("Thanks for Donating!");
@@ -127,9 +138,9 @@
         .error(error => console.log(`Error: ${error}`));
     }
     contributeVolunteer(id) {
-      var data = { 'volunteer_id': id };
+      const data = { 'volunteer_id': id };
       this.contributionFactory.makeVolunteerContribution(this.campaign._id, data)
-        .success(function(data) {
+        .success(data => {
           alert("Thanks for Signing Up!");
           this.contributionFactory.getContributions(this.campaign._id);
         })
@@ -142,8 +153,8 @@
       this.contributionFactory.filterContributionsByType('Supply', data, id);
     }
     range(count) {
-      var quantity = [];
-      for (var i = 1; i < count + 1; i++) {
+      const quantity = [];
+      for (let i = 1; i < count + 1; i++) {
         quantity.push(i);
       }
       return quantity;
