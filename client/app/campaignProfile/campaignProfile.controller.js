@@ -26,15 +26,15 @@
       this.getCampaignData();
     }
     calculateDonations(contributions) {
-      var donations = _.filter(contributions, val => { return val.type === 'Donation'});
-      console.log(donations);
-      return _.reduce(donations, (total, val) => {return total + val});
+      var donations = _.filter(contributions, (val) => val.type === 'Donation')
+        .map(a =>  a.amount).reduce((a, b) => a + b);
+      console.log('donationsSooly', donations);
+      return donations;
     }
     updateDonatedAmount() {
       var _this = this;
-      this.campaignFactory.updateDonations(this.stateParams.id).then(data => {
-          console.log('update donated ', data);
-          _this.donated = _this.calculateDonations(data);
+      this.campaignFactory.updateDonations(_this.stateParams.id).then(data => {
+          _this.donated = _this.calculateDonations(data.data);
       });
     }
     saveDonation(amount) {
