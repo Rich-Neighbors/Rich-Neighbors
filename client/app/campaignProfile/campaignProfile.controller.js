@@ -34,6 +34,7 @@
     updateDonatedAmount() {
       var _this = this;
       this.campaignFactory.updateDonations(_this.stateParams.id).then(data => {
+          console.log('update donated ', data);
           _this.donated = _this.calculateDonations(data.data);
       });
     }
