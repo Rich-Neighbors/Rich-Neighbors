@@ -18,14 +18,28 @@ angular.module('bApp', [
     'ngFileUpload',
     'bApp.StartCampaignController'
   ])
-//   .run(function($rootScope, $document) {
-//     $rootScope.$on('$viewContentLoaded', function () {
-//         $($document).foundation();
-//     });
-// })
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
       .otherwise('/');
-
     $locationProvider.html5Mode(true);
   });
+  // .run(function ($rootScope, $location, $state, Auth) {
+  //     $rootScope.$on('$stateChangeStart',
+  //       function(event, toState, toParams, fromState, fromParams){
+  //         console.log('auth', Auth.isAuth());
+  //         if(toState && toState.authenticate && !Auth.isAuth()) {
+  //           $location.path('/');
+  //         }
+  //         else if(toState.name === 'signin' && Auth.isAuth()) {
+  //           $location.path('/landing');
+  //           $state.go('landing');
+  //         }
+  //     });
+// .run(function ($rootScope, $location, Auth) {
+//   // checks if user is logged in with any route change
+//   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+//     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
+//       $location.path('/signin');
+//     }
+//   });
+//})

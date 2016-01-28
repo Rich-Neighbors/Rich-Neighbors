@@ -4,15 +4,15 @@
   <div class="comment-form">
     <!-- Comment Avatar -->
     <div class="comment-avatar" ng-show="nav.isLoggedIn()">
-      <img src="{{profile_pic}}">
+      <img src="{{cpCtrl.profile_pic}}">
     </div>
-    <form class="form" name="form" ng-submit="addComment()" novalidate ng-show="nav.isLoggedIn()">
+    <form class="form" name="cpCtrl.form" ng-submit="cpCtrl.addComment()" novalidate ng-show="nav.isLoggedIn()">
       <!-- form.$valid &&-->
       <div class="form-row">
-        <textarea class="input" ng-model="formData.text" placeholder="Add comment..." required></textarea>
+        <textarea class="input" ng-model="cpCtrl.commentText" placeholder="Add comment..." required></textarea>
       </div>
       <div class="form-row" ng-show="nav.isLoggedIn()">
-        {{name}}
+        {{cpCtrl.name}}
       </div>
       <!-- <div class="form-row" ng-hide="nav.isLoggedIn()">
         <input class="input" ng-class="{ disabled: comment.anonymous }" ng-disabled="comment.anonymous" ng-model="comment.author" ng-required="!comment.anonymous" placeholder="Email" type="email">
@@ -29,11 +29,11 @@
   <!-- Comments List -->
   <div class="comments">
     <!-- Comment -->
-    <div ng-show="obj.comments.length === 0">
+    <div ng-show="cpCtrl.comments.length === 0">
       <h5> There are no comments for this campaign </h5>
     </div>
     <!-- <div class="comment" ng-repeat="comment in obj.comments | orderBy: '-created_at'"> -->
-    <div class="comment" ng-repeat="comment in obj.comments | orderBy: 'created_at': true" ng-init="replies=[]">
+    <div class="comment" ng-repeat="comment in cpCtrl.comments | orderBy: 'created_at': true" ng-init="replies=[]">
            <!-- Comment Avatar -->
       <div class="comment-avatar">
         <img ng-src="{{ comment.profile_pic }}">
