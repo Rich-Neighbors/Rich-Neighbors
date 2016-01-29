@@ -2,12 +2,10 @@
 
 (function () {
   class CampaignService {
-
     constructor($http, Auth) {
       this.http = $http;
       this.auth = Auth;
     }
-
     getCampaigns(params) {
       return this.http({
           method: 'GET',
