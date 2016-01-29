@@ -72,7 +72,7 @@ var CampaignSchema = new Schema({
   },
   loc: {
     type: [Number],
-    index: '2d'
+    index: '2dsphere'
   },
   goal: {
     type: String,

@@ -99,11 +99,11 @@ exports.index = function(req, res) {
   } else {
       var limit = req.query.limit || 9;
       var offset = req.query.offset || 0;
-      // get the max distance or set it to 8 kilometers
-      var maxDistance = req.query.distance || 500;
+      // get the max distance/radius or set it to 100 miles
+      var maxDistance = req.query.distance || 100;
       // we need to convert the distance to radians
-      // the raduis of Earth is approximately 6371 kilometers
-      maxDistance /= 6371;
+      // convert miles to latitude/longitute radius
+      maxDistance /= 69;
       // get coordinates [ <longitude> , <latitude> ]
       var data;
       var coords = [];
@@ -112,10 +112,11 @@ exports.index = function(req, res) {
       if (coords[0] === 0 && coords[1] === 0) {
         data = {};
       } else {
-        data = req.params === {} ? req.params : {
+        data = req.params !== {} ? req.params : {
           loc: {
-            $near: coords,
-            $maxDistance: maxDistance
+            $geoWithin: {
+              $center: [coords, maxDistance ]
+            }
           }
         };
 
