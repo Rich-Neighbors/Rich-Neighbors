@@ -15,6 +15,7 @@
       commentFactory,
       contributionFactory,
       followingFactory) {
+
       this.auth = Auth;
       this.stateParams = $stateParams;
       this.http = $http;
@@ -41,7 +42,6 @@
     calculateDonations(contributions) {
       const donations = _.filter(contributions, (val) => val.type === 'Donation')
         .map(a =>  a.amount).reduce((a, b) => a + b);
-      console.log('donationsSooly', donations);
       return donations;
     }
     updateDonatedAmount() {
@@ -75,6 +75,7 @@
     }
     addComment() {
       const _this = this;
+      console.log('COMMENTSHOOOO  ', this.commentData);
       this.commentFactory.createComment(this.commentData, this.campaign._id)
         .success(data => {
       console.log(data);
