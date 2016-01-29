@@ -20,7 +20,7 @@
       this.stateParams = $stateParams;
       this.http = $http;
       this.api = apiCall;
-      //this.obj = apiCall.obj;
+      //this.obj = apiCall.obj; 
       this.geolocationFactory = geolocationFactory;
       this.generalFactory = generalFactory;
       this.donationFactory = donationFactory;
@@ -109,7 +109,7 @@
         //     console.log('dataHOOEREEEE ', data)
         //     _this.following = true; _this.followingid = data[0]._id }
         //   else { _this.following = false; _this.followingid = null;}
-        // })
+        })
         .catch(error => { console.log(`Error: ${error}`);});
     }
     clicktofollow() {
