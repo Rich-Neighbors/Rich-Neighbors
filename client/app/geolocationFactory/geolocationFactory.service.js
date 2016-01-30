@@ -24,7 +24,7 @@ class generalService {
     this.campaignId = id;
   }
   getCampaignId() {
-    return campaignId;
+    return this.campaignId;
   }
   static factory() {
     return new generalService();

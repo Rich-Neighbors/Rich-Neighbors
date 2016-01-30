@@ -2,7 +2,7 @@
 <br>
 
 <div class="row">
-  <div class="medium-6 large-9 columns">
+  <div class="small-12 medium-6 large-9 columns">
     <h1>{{cpCtrl.campaign.title}}</h1>
     <p><img src="{{cpCtrl.campaign.images[0].link}}" alt="image of a planet called Campaign Image"></p>
     <p>{{cpCtrl.campaign.address.city}}, {{campaign.address.state | uppercase}} - {{campaign.address.country}}</p>
@@ -56,7 +56,7 @@
           <a href="/donate" class="dd-button big green has-icon">MAKE A DONATION<span class="dd-button-icon"><i class="fa fa-dollar"></i></span></a>
           <br>
           <br>
-          <a href="#" class="dd-button big green has-icon" ng-click="cpCtrl.saveDonation(100)">Donate $100</a>
+          <a href="#" class="dd-button big green has-icon" ng-click="cpCtrl.saveDonation(100);updateDonatedAmount()">Donate $100</a>
         </div>
       </div>
     </div>
